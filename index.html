@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Portfolio | Mr W.</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6f8;
+    color:#333;
+    line-height:1.6;
+}
+
+header{
+    background:#2c3e50;
+    color:white;
+    text-align:center;
+    padding:60px 20px;
+}
+
+header h1{
+    margin-bottom:10px;
+    font-size:2.8rem;
+}
+
+header p{
+    max-width:850px;
+    margin:auto;
+    font-size:1.1rem;
+}
+
+main{
+    max-width:1100px;
+    margin:50px auto;
+    padding:0 20px;
+}
+
+.intro{
+    margin-bottom:50px;
+}
+
+.timeline{
+    position:relative;
+    margin:40px 0;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:120px;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:#c5ccd3;
+}
+
+.year{
+    position:relative;
+    margin-bottom:50px;
+}
+
+.year-label{
+    position:absolute;
+    width:90px;
+    text-align:center;
+    font-size:1.3rem;
+    font-weight:bold;
+    color:#2c3e50;
+}
+
+.events{
+    margin-left:170px;
+}
+
+.card{
+    background:white;
+    border-radius:8px;
+    padding:22px;
+    margin-bottom:25px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.card h3{
+    margin-top:0;
+    color:#2c3e50;
+}
+
+.card p{
+    margin-bottom:18px;
+}
+
+.card a{
+    display:inline-block;
+    text-decoration:none;
+    color:white;
+    background:#2c3e50;
+    padding:10px 18px;
+    border-radius:4px;
+}
+
+.card a:hover{
+    background:#1d2d3d;
+}
+
+footer{
+    text-align:center;
+    color:#666;
+    border-top:1px solid #ddd;
+    padding:30px;
+    margin-top:60px;
+}
+
+@media(max-width:700px){
+
+.timeline::before{
+    display:none;
+}
+
+.year-label{
+    position:static;
+    width:auto;
+    text-align:left;
+    margin-bottom:15px;
+}
+
+.events{
+    margin-left:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Artificial Intelligence Portfolio</h1>
+
+<p>
+Welcome to my AI portfolio. This portfolio documents my journey learning and experimenting with artificial
+intelligence through personal projects, online courses, local AI models,
+creative experimentation, and open-source software. I enjoy learning by
+building real projects and exploring how rapidly AI technology continues to
+evolve.
+</p>
+
+</header>
+
+<main>
+
+<section class="intro">
+
+<h2>My AI Journey</h2>
+
+<p>
+Beginning with AI-generated artwork in 2022, my interests have steadily grown
+to include programming, local large language models, voice synthesis,
+image generation, AI video, and workflow automation. Each project below
+represents a milestone in my ongoing exploration of practical AI.
+</p>
+
+</section>
+
+<div class="timeline">
+
+<!-- ==================== 2022 ===================== -->
+
+<div class="year">
+
+<div class="year-label">2022</div>
+
+<div class="events">
+
+<div class="card">
+
+<h3>🎨 Midjourney</h3>
+
+<p>
+My introduction to image generative AI. I experimented with fantasy artwork,
+discovered prompt engineering, and explored what early AI image generation
+could accomplish.
+</p>
+
+<a href="ai_midjourney/index.html">Read More</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==================== 2024 ===================== -->
+
+<div class="year">
+
+<div class="year-label">2024</div>
+
+<div class="events">
+
+<div class="card">
+
+<h3>🐍 AI Python for Beginners</h3>
+
+<p>
+Completed DeepLearning.AI's introductory Python course, refreshing my
+programming skills while learning Python, Jupyter Notebooks, and LLM APIs.
+</p>
+
+<a href="ai_python/index.html">Read More</a>
+
+</div>
+
+<div class="card">
+
+<h3>🎮 Python Point-and-Click Adventure Game</h3>
+
+<p>
+Designed and built a point-and-click adventure game from
+scratch using Python while creating AI-generated artwork
+for characters, backgrounds, and environments.
+</p>
+
+<a href="ai_point_click/index.html">Read More</a>
+
+</div>
+
+<div class="card">
+
+<h3>🖥️ LM Studio</h3>
+
+<p>
+Installed LM Studio to run open-source language models locally, exploring AI
+privacy, offline inference, and the growing ecosystem of locally hosted LLMs.
+</p>
+
+<a href="ai_lm_studio/index.html">Read More</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==================== 2025 ===================== -->
+
+<div class="year">
+
+<div class="year-label">2025</div>
+
+<div class="events">
+
+<div class="card">
+
+<h3>🎬 OpenAI Sora</h3>
+
+<p>
+Explored OpenAI's Sora by creating AI-generated videos, animating photographs,
+and experimenting with cinematic fantasy scenes and remixing features.
+</p>
+
+<a href="ai_sora/index.html">Read More</a>
+
+</div>
+
+<div class="card">
+
+<h3>🎤 Pocket-TTS Voice Cloning</h3>
+
+<p>
+Experimented with open-source AI voice synthesis using Pocket-TTS on a Linux
+laptop, including voice cloning from short audio samples 
+locally using only CPU resources.
+</p>
+
+<a href="ai_pocket_tts_voice/index.html">Read More</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ==================== 2026 ===================== -->
+
+<div class="year">
+
+<div class="year-label">2026</div>
+
+<div class="events">
+
+<div class="card">
+
+<h3>📊 Claude Desktop Workflows</h3>
+
+<p>
+Configured Claude Desktop using Skills and Rules to
+streamline financial research workflows with reusable
+instructions and supporting documents.
+</p>
+
+<a href="ai_financial_research/index.html">Read More</a>
+
+</div>
+
+
+<div class="card">
+
+<h3>🖼️ Stable Diffusion + WebUI Forge</h3>
+
+<p>
+Built a local AI image generation workstation using Stable Diffusion,
+WebUI Forge, and the FLUX model on Nobara Linux with an NVIDIA RTX 4070 Ti GPU.
+</p>
+
+<a href="ai_stable_diffusion/index.html">Read More</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- ==================== Future ===================== -->
+
+<div class="year">
+
+<div class="year-label">Future</div>
+
+<div class="events">
+
+<div class="card">
+
+<h3>📰 Continuous Learning</h3>
+
+<p>
+Stay current with the latest advances in AI by regularly reading <em>The Neuron</em> and
+DeepLearning.AI's <em>The Batch</em>.
+</p>
+
+<a href="ai_staying_current/index.html">Read More</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<section>
+
+<h2>My AI Journey</h2>
+
+<p>
+    My interest in artificial intelligence began with creative experimentation
+    using image generation tools and gradually expanded into Python programming,
+    large language models, AI-assisted software development, and workflow
+    automation. Through online courses, independent projects, and continuous
+    learning, I have developed practical experience using AI as both a creative
+    and technical tool.
+</p>
+
+<p>
+    I believe the most effective way to learn new technology is by building with
+    it. Every project in this portfolio represents an opportunity to explore a
+    different aspect of artificial intelligence while developing new technical
+    skills and gaining a better understanding of where AI can provide meaningful
+    value.
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+© 2026 • Personal AI Portfolio • Continuous Learning Through Hands-on Projects
+</p>
+
+</footer>
+
+</body>
+</html>
+
