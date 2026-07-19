@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio AI Experiment: Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</title>
+
+<style>
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    max-width:950px;
+    margin:40px auto;
+    padding:0 20px;
+    line-height:1.7;
+    color:#333;
+    background:#fff;
+}
+
+header{
+    border-bottom:2px solid #ddd;
+    padding-bottom:20px;
+    margin-bottom:30px;
+}
+
+h1{
+    color:#222;
+    margin-bottom:5px;
+}
+
+h2{
+    color:#444;
+    margin-top:35px;
+}
+
+p{
+    margin-bottom:18px;
+}
+
+.highlight{
+    background:#f5f5f5;
+    border-left:4px solid #666;
+    padding:15px;
+    margin:20px 0;
+}
+
+figure{
+    text-align:center;
+    margin:30px 0;
+}
+
+figure img{
+    max-width:100%;
+    border:1px solid #ccc;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+figcaption{
+    margin-top:10px;
+    color:#666;
+    font-size:.9em;
+}
+
+audio{
+    width:100%;
+    margin:10px 0 25px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:left;
+}
+
+th{
+    background:#f2f2f2;
+}
+
+footer{
+    margin-top:50px;
+    padding-top:20px;
+    border-top:1px solid #ddd;
+    color:#666;
+    font-size:.9em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Audio AI Experiment</h1>
+
+<p><strong>Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</strong></p>
+
+</header>
+
+<section>
+
+<h2>Revisiting Voice Cloning</h2>
+
+<p>
+After successfully experimenting with Pocket-TTS for local voice cloning, I
+became curious about how the state of AI speech synthesis had evolved. Rather
+than relying on a single tool, I decided to compare a commercial cloud service
+against two local, open-source solutions.
+</p>
+
+<p>
+My goal wasn't simply to determine which system sounded the best. I also wanted
+to compare convenience, quality, and whether local AI could produce results
+close enough to commercial offerings for hobby projects.
+</p>
+
+</section>
+
+<section>
+
+<h2>Starting with ElevenLabs</h2>
+
+<p>
+I created a free ElevenLabs account to establish a quality benchmark.
+ElevenLabs is widely regarded as one of the industry's leading AI voice
+generation platforms, making it an excellent point of comparison.
+</p>
+
+<p>
+Rather than writing my own prompt, I asked Claude to help design a voice prompt
+tailored for fantasy dialogue.
+</p>
+<div class="highlight">
+"Generate the voice of a rugged fantasy dwarf: a deep, gravelly baritone with a rough, weathered texture that suggests decades spent in mountain halls, forges, and battlefields. The voice is broad, powerful, and resonant, with a naturally gruff delivery that carries warmth beneath its stern exterior. Speak with measured confidence and deliberate pacing, emphasizing consonants slightly and using a rich chest resonance. The tone should convey resilience, pride, craftsmanship, and quiet determination rather than anger. Add subtle breaths and natural vocal imperfections, such as occasional gravel and rasp, while maintaining excellent intelligibility. The accent should evoke a classic high-fantasy mountain culture without closely resembling any specific existing fictional character or copyrighted performance. Deliver the speech with the presence of a seasoned clan elder or master smith telling a story beside a roaring forge."
+</div>
+<p>
+The resulting voice perfectly captured the
+personality I was looking for: a gruff dwarven blacksmith who sounded as though
+he had spent decades working at the forge.
+</p>
+
+
+<p>
+The quality of the generated speech was remarkable. Natural pacing,
+expressiveness, and emotional delivery combined to create one of the most
+realistic AI-generated voices I have heard.
+</p>
+
+
+</section>
+
+<section>
+
+<h2>Can Local AI Compete?</h2>
+
+<p>
+Although ElevenLabs impressed me, I still prefer running AI models locally
+whenever practical. Local models provide privacy, complete control over the
+workflow, and eliminate reliance on cloud services or usage limits.
+</p>
+
+<p>
+To see how close open-source software could come, I turned to ComfyUI.
+</p>
+
+<p>
+ComfyUI contains a growing collection of workflow templates contributed by the
+community. While these templates provide an excellent starting point, they
+typically require some troubleshooting and modification before they function
+correctly. After resolving dependency issues involving Python, PyTorch, and
+other required components, I successfully got the <strong>Chatterbox TTS</strong>
+workflow running.
+</p>
+
+<p>
+Unlike my earlier Pocket-TTS experiments on a laptop CPU, ComfyUI was running
+on a Windows workstation equipped with a powerful GPU, providing significantly
+more computational performance.
+</p>
+
+<figure>
+
+<img src="comfyui_chatterbox_screenshot.png" alt="ComfyUI Chatterbox workflow">
+
+<figcaption>
+ComfyUI running the Chatterbox TTS workflow used for local voice cloning.
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Comparing the Results</h2>
+
+<p>
+Using the same voice sample, I generated cloned speech with both ComfyUI
+Chatterbox and my existing Pocket-TTS installation.
+</p>
+
+<p>
+Both local systems produced surprisingly convincing results. While neither
+matched the polish of the ElevenLabs original, each captured the overall tone,
+cadence, and personality of the source voice remarkably well.
+</p>
+
+<p>
+The experiment reinforced how rapidly open-source speech synthesis continues to
+improve. What once required specialized cloud services can now be performed
+locally on consumer hardware with impressive quality.
+</p>
+
+<table>
+
+<tr>
+<th>System</th>
+<th>Overall Impression</th>
+</tr>
+
+<tr>
+<td>ElevenLabs</td>
+<td>Outstanding realism with expressive delivery and excellent voice quality.</td>
+</tr>
+
+<tr>
+<td>ComfyUI + Chatterbox</td>
+<td>Very convincing local clone with quality approaching commercial services.</td>
+</tr>
+
+<tr>
+<td>Pocket-TTS</td>
+<td>Still surprisingly capable, especially considering it can operate entirely on a laptop CPU.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Audio Samples</h2>
+
+<p>
+Below are the three samples generated during this comparison. Visitors can
+listen to each version and decide for themselves how closely the local models
+match the commercial reference.
+</p>
+
+<h3>ElevenLabs Original</h3>
+
+<audio controls>
+    <source src="gruff_fantasy_dwarf_elevenlabs_output.mp3" type="audio/mpeg">
+</audio>
+
+<h3>ComfyUI Chatterbox Clone</h3>
+
+<audio controls>
+    <source src="gruff_fantasy_dwarf_chatterbox_tts_output.mp3" type="audio/mpeg">
+</audio>
+
+<h3>Pocket-TTS Clone</h3>
+
+<audio controls>
+    <source src="gruff_fantasy_dwarf_pocket_tts_output.wav" type="audio/wav">
+</audio>
+
+</section>
+
+<section>
+
+<h2>Reflection</h2>
+
+<p>
+This project demonstrated just how quickly AI voice technology continues to
+advance. ElevenLabs currently delivers the highest-quality speech generation I
+have personally experienced, but the gap between commercial and open-source
+solutions continues to narrow.
+</p>
+
+<p>
+For many personal projects, local voice cloning is now entirely practical.
+Being able to generate convincing speech without sending data to a cloud service
+is a significant advantage for privacy-conscious users like myself.
+</p>
+
+<p>
+Looking ahead, I expect open-source speech models to continue improving at a
+rapid pace. As local workflows become easier to install and configure, AI voice
+generation will likely become another standard capability available on ordinary
+desktop computers.
+</p>
+
+</section>
+
+<footer>
+
+<p>
+Personal Portfolio &mdash; Audio AI Experiment &mdash; Commercial vs. Local Voice Cloning
+</p>
+
+</footer>
+
+</body>
+</html>
