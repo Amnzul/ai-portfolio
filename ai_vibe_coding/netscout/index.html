@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Coding netscout in Rust</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+        }
+
+        header {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            color: #444;
+            margin-top: 35px;
+        }
+
+        p {
+            margin-bottom: 18px;
+        }
+
+        .highlight {
+            background: #f5f5f5;
+            border-left: 4px solid #666;
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+
+        .features {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            margin: 25px 0;
+        }
+
+        .features li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>Vibe Coding netscout in Rust</h1>
+
+    <p>
+        <strong>Building a Linux Network Scanner with Claude</strong>
+    </p>
+
+</header>
+
+<section>
+
+    <h2>A New Challenge</h2>
+
+    <p>
+        After experimenting with Claude to build several applications, I wanted
+        to try something that presented a different kind of challenge. I had
+        never programmed in <strong>Rust</strong> before, so I decided to see
+        what would happen if I used Claude to build a useful application in a
+        language I didn't know.
+    </p>
+
+    <p>
+        The project became <strong>netscout</strong>, a Linux network scanner
+        designed to discover devices on my local network and display information
+        about them in a live-updating interface.
+    </p>
+
+    <div class="highlight">
+
+        <strong>The interesting part:</strong> I had no previous Rust
+        experience, but that did not prevent me from building a functional
+        application. Claude handled much of the language-specific implementation
+        while I focused on describing what I wanted and evaluating the results.
+
+    </div>
+
+<div style="text-align: center;">
+<P> Terminal UI </p>
+  <img src="netscout_cli_ui_screenshot.png" style="width: 80%; display: block; margin: 0 auto;">
+<P> Web Dashboard </P>
+  <img src="netscout_web_ui_screenshot.png" style="width: 80%; display: block; margin: 0 auto;">
+
+</div>
+
+
+</section>
+
+
+
+
+<section>
+
+    <h2>What netscout Does</h2>
+
+    <p>
+        netscout monitors a local network and identifies devices it discovers.
+        It displays useful information such as hostnames, IP addresses, MAC
+        addresses, and hardware vendors.
+    </p>
+
+    <div class="features">
+
+        <ul>
+            <li><strong>Passive scanning</strong> — listens for ARP traffic without generating network traffic.</li>
+            <li><strong>Active scanning</strong> — can send ARP probes to discover quieter devices.</li>
+            <li><strong>Live terminal interface</strong> — displays discovered devices and updates in real time.</li>
+            <li><strong>MAC vendor identification</strong> — identifies hardware manufacturers using an embedded OUI database.</li>
+            <li><strong>Hostname resolution</strong> — attempts to identify devices by hostname.</li>
+            <li><strong>Optional web dashboard</strong> — provides the same information through a browser interface.</li>
+        </ul>
+
+    </div>
+
+</section>
+
+<section>
+
+    <h2>Why Rust?</h2>
+
+    <p>
+        Choosing Rust was intentional. I wanted to find out whether unfamiliarity
+        with a programming language would become a significant barrier when
+        working with an AI coding assistant.
+    </p>
+
+    <p>
+        It turned out that it wasn't.
+    </p>
+
+    <p>
+        I could describe the functionality I wanted, have Claude generate the
+        implementation, compile and test it, and then return to Claude with
+        problems or changes. When I encountered Rust-specific concepts, I could
+        ask Claude to explain them or modify the code rather than having to stop
+        the project and first become proficient in Rust.
+    </p>
+
+</section>
+
+<section>
+
+    <h2>From Idea to Application</h2>
+
+    <p>
+        The project was another example of how I have been using AI-assisted
+        development as an iterative process. I didn't start with a complete
+        design or a detailed understanding of how every component would work.
+    </p>
+
+    <p>
+        Instead, I started with a goal and gradually refined the application.
+        Claude helped translate those requirements into Rust, while testing the
+        application revealed new things I wanted to change or improve.
+    </p>
+
+    <p>
+        The finished program runs as a Linux application and can operate from
+        the terminal, including over an SSH connection. It can also optionally
+        provide a web interface for viewing the network remotely.
+    </p>
+
+</section>
+
+<section>
+
+    <h2>What I Learned</h2>
+
+    <p>
+        This project reinforced something I had already begun to discover through
+        my earlier vibe-coding experiments: knowing how to program is still
+        valuable, but AI changes how that knowledge can be applied.
+    </p>
+
+    <p>
+        I didn't need to know Rust syntax before starting the project. What I
+        needed was enough technical understanding to describe the problem,
+        recognize whether the solution made sense, test the application, and
+        identify when something wasn't working correctly.
+    </p>
+
+    <div class="highlight">
+
+        <p>
+            <strong>Vibe coding didn't make Rust disappear.</strong> It gave me
+            a way to work productively with Rust before I knew the language.
+            Instead of learning the language first and then building something,
+            I learned about the language while building something.
+        </p>
+
+    </div>
+
+</section>
+
+<section>
+
+    <h2>Reflection</h2>
+
+    <p>
+        netscout was a particularly interesting experiment because it moved my
+        AI-assisted programming beyond simple scripts and into a more substantial
+        systems-oriented application.
+    </p>
+
+    <p>
+        More importantly, it challenged one of my assumptions about programming:
+        that not knowing a language necessarily means you can't build something
+        useful with it. With an AI coding assistant acting as a knowledgeable
+        collaborator, the barrier was much lower than I expected.
+    </p>
+
+    <p>
+        I still wouldn't consider myself a Rust programmer. But I now know that
+        lack of experience with a particular language doesn't necessarily have
+        to prevent me from exploring what can be built with it.
+    </p>
+
+</section>
+
+<section>
+
+    <h2>Github</h2>
+
+<p>netscout is available to download including the source code on my <a href="https://github.com/Amnzul/netscout">Github.</a>
+</p>
+
+</section>
+
+<footer>
+
+    <p>
+        Personal Portfolio &mdash; Vibe Coding &mdash; netscout
+    </p>
+
+</footer>
+
+</body>
+</html>
