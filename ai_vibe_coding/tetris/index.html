@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,51 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vibe Coding Tetris for the Terminal</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.7;
-            color: #333;
-            background: #fff;
-        }
-
-        header {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #222;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            color: #444;
-            margin-top: 35px;
-        }
-
-        .highlight {
-            background: #f5f5f5;
-            border-left: 4px solid #666;
-            padding: 15px 20px;
-            margin: 25px 0;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../style.css">
 </head>
 
 <body>
+
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
 
 <header>
 
@@ -72,7 +66,7 @@
         that could run directly in the Linux terminal.
     </p>
 
-   
+
 </section>
 
 <section>
@@ -91,7 +85,7 @@
         into a functioning game.
     </p>
 
-   
+
 </section>
 
 <section>
@@ -115,9 +109,9 @@ python3 tetris.py
         needed improvement, and ask Claude to modify the program.
     </p>
 
-   
 
- 
+
+
 </section>
 
 
@@ -148,6 +142,11 @@ python3 tetris.py
     </p>
 
 </footer>
+
+</main>
+
+
+<script src="../../script.js"></script>
 
 </body>
 </html>

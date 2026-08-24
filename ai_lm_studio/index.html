@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,170 +7,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Running Local AI Models with LM Studio</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.7;
-            color: #333;
-            background: #fff;
-        }
-
-        header {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #222;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            color: #444;
-            margin-top: 35px;
-        }
-
-        p {
-            margin-bottom: 18px;
-        }
-
-        .highlight {
-            background: #f5f5f5;
-            border-left: 4px solid #666;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
+
 <header>
+
     <h1>Running Local AI Models with LM Studio</h1>
-    <p><strong>Exploring Open-Source Large Language Models &mdash; 2024</strong></p>
+
+    <p>
+        <strong>Exploring Open-Source Large Language Models 2024</strong>
+    </p>
+
 </header>
 
-<section>
 
-<h2>Why I Chose LM Studio</h2>
 
-<p>
-    In 2024, I installed <A href="https://lmstudio.ai/">LM Studio</a> to explore the growing ecosystem of
-    open-source large language models that could be run entirely on my own
-    computer. After spending time with cloud-based AI services, I became
-    interested in understanding what was possible with locally hosted models.
-</p>
 
-<p>
-    One of my primary motivations was privacy. I appreciated knowing that my
-    ideas remained on my own computer rather than being sent
-    to external servers. As I like to joke, I didn't need big data scooping up
-    all of my creative genius.
-</p>
+    <section>
 
-</section>
+        <h2>Why I Chose LM Studio</h2>
 
-<section>
+        <p>
+            In 2024, I installed <a href="https://lmstudio.ai/">LM Studio</a> to explore the growing ecosystem of
+            open-source large language models that could be run entirely on my own
+            computer. After spending time with cloud-based AI services, I became
+            interested in understanding what was possible with locally hosted models.
+        </p>
 
-<h2>Discovering Open-Source Models</h2>
+        <p>
+            One of my primary motivations was privacy. I appreciated knowing that my
+            ideas remained on my own computer rather than being sent
+            to external servers. As I like to joke, I didn't need big data scooping up
+            all of my creative genius.
+        </p>
 
-<p>
-    LM Studio made it remarkably easy to discover, download, and experiment
-    with a wide variety of open-source language models. Whenever I read about a
-    newly released model in AI newsletters or online discussions, I could often
-    download it and evaluate it for myself within minutes.
-</p>
+    </section>
 
-<p>
-    I developed a growing appreciation for the rapid pace of
-    innovation within the open-source AI community. It was exciting to have
-    access to technology that many casual AI users never experience because they
-    rely exclusively on commercial cloud services.
-</p>
 
-<div class="highlight">
-    Running models locally gave me the freedom to experiment without worrying
-    about subscription limits, usage caps, or internet connectivity after the
-    models had been downloaded.
+    <section>
+
+        <h2>Discovering Open-Source Models</h2>
+
+        <p>
+            LM Studio made it remarkably easy to discover, download, and experiment
+            with a wide variety of open-source language models. Whenever I read about a
+            newly released model in AI newsletters or online discussions, I could often
+            download it and evaluate it for myself within minutes.
+        </p>
+
+        <p>
+            I developed a growing appreciation for the rapid pace of
+            innovation within the open-source AI community. It was exciting to have
+            access to technology that many casual AI users never experience because they
+            rely exclusively on commercial cloud services.
+        </p>
+
+        <div class="highlight">
+            Running models locally gave me the freedom to experiment without worrying
+            about subscription limits, usage caps, or internet connectivity after the
+            models had been downloaded.
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h2>Advantages of Local AI</h2>
+
+        <p>
+            One of the biggest benefits of using LM Studio was that everything stayed on
+            my own computer. Beyond the privacy advantages, local execution also meant I
+            could continue experimenting even when offline. The experience felt more
+            like owning development tools than consuming an online service.
+        </p>
+
+        <p>
+            Because there were no message limits or quotas imposed by a hosted provider,
+            I was free to test prompts, compare models, and spend as much time learning
+            as I wanted. This encouraged experimentation.
+        </p>
+
+    </section>
+
+
+    <section>
+
+        <h2>What I Learned</h2>
+
+        <p>
+            Installing LM Studio broadened my understanding of the AI ecosystem beyond
+            commercial platforms. I gained firsthand experience with the diversity of
+            open-source models and learned that many capable language models are freely
+            available to anyone with suitable hardware.
+        </p>
+
+        <p>
+            The experience also reinforced the importance of open-source software within
+            the AI community. Being able to explore new models shortly after their
+            release gave me a deeper appreciation for how quickly the field evolves and
+            how collaborative many AI projects have become.
+        </p>
+
+    </section>
+
+
+    <section>
+
+        <h2>Reflection</h2>
+
+        <p>
+            My experience with LM Studio marked another step in my AI journey. Running models locally gave me greater control,
+            strengthened my understanding of modern language models, and allowed me to
+            experiment with cutting-edge open-source AI on my own terms.
+        </p>
+
+        <p>
+            I continue to see local AI as an important part of the broader AI landscape.
+            While cloud-hosted services offer convenience and access to extremely large
+            models, locally hosted models provide privacy, flexibility, and the freedom
+            to experiment without restrictions.
+        </p>
+
+    </section>
+
+
+    <footer>
+        <p>
+            Personal Portfolio &mdash; Exploring Local AI with LM Studio &mdash; 2024
+        </p>
+    </footer>
+
 </div>
 
-</section>
+</main>
 
-<section>
 
-<h2>Advantages of Local AI</h2>
-
-<p>
-    One of the biggest benefits of using LM Studio was that everything stayed on
-    my own computer. Beyond the privacy advantages, local execution also meant I
-    could continue experimenting even when offline. The experience felt more
-    like owning development tools than consuming an online service.
-</p>
-
-<p>
-    Because there were no message limits or quotas imposed by a hosted provider,
-    I was free to test prompts, compare models, and spend as much time learning
-    as I wanted. This encouraged experimentation.
-</p>
-
-</section>
-
-<section>
-
-<h2>What I Learned</h2>
-
-<p>
-    Installing LM Studio broadened my understanding of the AI ecosystem beyond
-    commercial platforms. I gained firsthand experience with the diversity of
-    open-source models and learned that many capable language models are freely
-    available to anyone with suitable hardware.
-</p>
-
-<p>
-    The experience also reinforced the importance of open-source software within
-    the AI community. Being able to explore new models shortly after their
-    release gave me a deeper appreciation for how quickly the field evolves and
-    how collaborative many AI projects have become.
-</p>
-
-</section>
-
-<section>
-
-<h2>Reflection</h2>
-
-<p>
-    My experience with LM Studio marked another step in my AI journey. Running models locally gave me greater control,
-    strengthened my understanding of modern language models, and allowed me to
-    experiment with cutting-edge open-source AI on my own terms.
-</p>
-
-<p>
-    I continue to see local AI as an important part of the broader AI landscape.
-    While cloud-hosted services offer convenience and access to extremely large
-    models, locally hosted models provide privacy, flexibility, and the freedom
-    to experiment without restrictions.
-</p>
-
-</section>
-
-<footer>
-    <p>
-        Personal Portfolio &mdash; Exploring Local AI with LM Studio &mdash; 2024
-    </p>
-</footer>
+<script src="../script.js"></script>
 
 </body>
 </html>

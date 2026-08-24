@@ -3,84 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding netscout in Rust</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            max-width: 950px;
-            margin: 40px auto;
-            padding: 0 20px;
-            line-height: 1.7;
-            color: #333;
-            background: #fff;
-        }
+    <title>Vibe Coding netscout in Rust | Mr. W. Labs</title>
 
-        header {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #222;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            color: #444;
-            margin-top: 35px;
-        }
-
-        p {
-            margin-bottom: 18px;
-        }
-
-        .highlight {
-            background: #f5f5f5;
-            border-left: 4px solid #666;
-            padding: 15px 20px;
-            margin: 25px 0;
-        }
-
-        .features {
-            background: #fafafa;
-            border: 1px solid #ddd;
-            padding: 10px 20px;
-            margin: 25px 0;
-        }
-
-        .features li {
-            margin-bottom: 8px;
-        }
-
-        code {
-            background: #f1f1f1;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
+    <link rel="stylesheet" href="../../style.css">
 </head>
+
 
 <body>
 
+
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
+
+
 <header>
 
-    <h1>Vibe Coding netscout in Rust</h1>
+    <div class="system-label">
+        VIBE CODING // PROJECT
+    </div>
+
+    <h1>
+        Vibe Coding netscout in Rust
+    </h1>
 
     <p>
         <strong>Building a Linux Network Scanner with Claude</strong>
     </p>
 
 </header>
+
 
 <section>
 
@@ -109,18 +92,30 @@
 
     </div>
 
-<div style="text-align: center;">
-<P> Terminal UI </p>
-  <img src="netscout_cli_ui_screenshot.png" style="width: 80%; display: block; margin: 0 auto;">
-<P> Web Dashboard </P>
-  <img src="netscout_web_ui_screenshot.png" style="width: 80%; display: block; margin: 0 auto;">
 
-</div>
+    <div class="screenshots">
 
+        <span class="screenshot-label">
+            Terminal UI
+        </span>
+
+        <img
+            src="netscout_cli_ui_screenshot.png"
+            alt="netscout terminal interface screenshot"
+        >
+
+        <span class="screenshot-label">
+            Web Dashboard
+        </span>
+
+        <img
+            src="netscout_web_ui_screenshot.png"
+            alt="netscout web dashboard screenshot"
+        >
+
+    </div>
 
 </section>
-
-
 
 
 <section>
@@ -136,17 +131,43 @@
     <div class="features">
 
         <ul>
-            <li><strong>Passive scanning</strong> — listens for ARP traffic without generating network traffic.</li>
-            <li><strong>Active scanning</strong> — can send ARP probes to discover quieter devices.</li>
-            <li><strong>Live terminal interface</strong> — displays discovered devices and updates in real time.</li>
-            <li><strong>MAC vendor identification</strong> — identifies hardware manufacturers using an embedded OUI database.</li>
-            <li><strong>Hostname resolution</strong> — attempts to identify devices by hostname.</li>
-            <li><strong>Optional web dashboard</strong> — provides the same information through a browser interface.</li>
+
+            <li>
+                <strong>Passive scanning</strong> —
+                listens for ARP traffic without generating network traffic.
+            </li>
+
+            <li>
+                <strong>Active scanning</strong> —
+                can send ARP probes to discover quieter devices.
+            </li>
+
+            <li>
+                <strong>Live terminal interface</strong> —
+                displays discovered devices and updates in real time.
+            </li>
+
+            <li>
+                <strong>MAC vendor identification</strong> —
+                identifies hardware manufacturers using an embedded OUI database.
+            </li>
+
+            <li>
+                <strong>Hostname resolution</strong> —
+                attempts to identify devices by hostname.
+            </li>
+
+            <li>
+                <strong>Optional web dashboard</strong> —
+                provides the same information through a browser interface.
+            </li>
+
         </ul>
 
     </div>
 
 </section>
+
 
 <section>
 
@@ -172,6 +193,7 @@
 
 </section>
 
+
 <section>
 
     <h2>From Idea to Application</h2>
@@ -195,6 +217,7 @@
     </p>
 
 </section>
+
 
 <section>
 
@@ -226,6 +249,7 @@
 
 </section>
 
+
 <section>
 
     <h2>Reflection</h2>
@@ -251,22 +275,42 @@
 
 </section>
 
+
 <section>
 
     <h2>Github</h2>
 
-<p>netscout is available to download including the source code on my <a href="https://github.com/Amnzul/netscout">Github.</a>
-</p>
+    <p>
+        netscout is available to download including the source code on my
+        <a
+            class="github-link"
+            href="https://github.com/Amnzul/netscout"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Github
+        </a>
+    </p>
 
 </section>
+
 
 <footer>
 
     <p>
-        Personal Portfolio &mdash; Vibe Coding &mdash; netscout
+        MR_W_LABS //
+        VIBE CODING //
+        NETSCOUT //
+        RUST
     </p>
 
 </footer>
+
+
+</main>
+
+
+<script src="../../script.js"></script>
 
 </body>
 </html>

@@ -1,108 +1,62 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Audio AI Experiment: Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio AI Experiment: Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</title>
 
-<style>
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    max-width:950px;
-    margin:40px auto;
-    padding:0 20px;
-    line-height:1.7;
-    color:#333;
-    background:#fff;
-}
-
-header{
-    border-bottom:2px solid #ddd;
-    padding-bottom:20px;
-    margin-bottom:30px;
-}
-
-h1{
-    color:#222;
-    margin-bottom:5px;
-}
-
-h2{
-    color:#444;
-    margin-top:35px;
-}
-
-p{
-    margin-bottom:18px;
-}
-
-.highlight{
-    background:#f5f5f5;
-    border-left:4px solid #666;
-    padding:15px;
-    margin:20px 0;
-}
-
-figure{
-    text-align:center;
-    margin:30px 0;
-}
-
-figure img{
-    max-width:100%;
-    border:1px solid #ccc;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
-}
-
-figcaption{
-    margin-top:10px;
-    color:#666;
-    font-size:.9em;
-}
-
-audio{
-    width:100%;
-    margin:10px 0 25px 0;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
-
-th,td{
-    border:1px solid #ddd;
-    padding:12px;
-    text-align:left;
-}
-
-th{
-    background:#f2f2f2;
-}
-
-footer{
-    margin-top:50px;
-    padding-top:20px;
-    border-top:1px solid #ddd;
-    color:#666;
-    font-size:.9em;
-}
-
-</style>
-
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
+
 <header>
 
-<h1>Audio AI Experiment</h1>
+    <h1>Audio AI Experiment: Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</h1>
 
-<p><strong>Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</strong></p>
+    <p>
+        <strong>Comparing ElevenLabs, ComfyUI Chatterbox, and Pocket-TTS</strong>
+    </p>
 
 </header>
+
+
 
 <section>
 
@@ -187,7 +141,7 @@ more computational performance.
 
 <figure>
 
-<img src="comfyui_chatterbox_screenshot.png" alt="ComfyUI Chatterbox workflow">
+<img src="comfyui_chatterbox_screenshot.png" alt="ComfyUI Chatterbox workflow" style="width: 80%; display: block; margin: 0 auto;">
 
 <figcaption>
 ComfyUI running the Chatterbox TTS workflow used for local voice cloning.
@@ -307,6 +261,11 @@ Personal Portfolio &mdash; Audio AI Experiment &mdash; Commercial vs. Local Voic
 </p>
 
 </footer>
+
+</main>
+
+
+<script src="../script.js"></script>
 
 </body>
 </html>

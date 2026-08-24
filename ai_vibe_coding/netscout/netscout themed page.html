@@ -1,0 +1,1554 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vibe Coding netscout in Rust | Mr. W. Labs</title>
+
+    <style>
+
+        /* =========================================================
+           CORE
+        ========================================================= */
+
+        :root {
+            --bg: #03050b;
+            --bg2: #070b14;
+
+            --cyan: #00eaff;
+            --cyan-soft: rgba(0, 234, 255, .18);
+
+            --blue: #397cff;
+            --purple: #a855f7;
+
+            --text: #e8f7ff;
+            --muted: #8495a7;
+
+            --panel: rgba(7, 14, 27, .72);
+            --panel-hover: rgba(10, 21, 39, .88);
+
+            --border: rgba(0, 234, 255, .14);
+            --border-hover: rgba(0, 234, 255, .55);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(0, 234, 255, .09),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 90% 50%,
+                    rgba(168, 85, 247, .06),
+                    transparent 30%
+                ),
+                var(--bg);
+
+            color: var(--text);
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            line-height: 1.7;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================================================
+           NEURAL CANVAS
+        ========================================================= */
+
+        #neural-network {
+            position: fixed;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            z-index: -10;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================================================
+           DIGITAL GRID
+        ========================================================= */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: -5;
+
+            opacity: .16;
+
+            background-image:
+                linear-gradient(
+                    rgba(0,234,255,.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0,234,255,.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+        }
+
+
+        /* =========================================================
+           SCANLINE
+        ========================================================= */
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 20;
+
+            opacity: .025;
+
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(255,255,255,.08) 4px
+                );
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 100;
+
+            height: 64px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background:
+                rgba(3,5,11,.76);
+
+            backdrop-filter: blur(18px);
+
+            border-bottom:
+                1px solid
+                rgba(0,234,255,.09);
+        }
+
+        .logo {
+
+            font-family: monospace;
+
+            font-size: .85rem;
+
+            letter-spacing: 3px;
+
+            color: var(--cyan);
+
+            text-shadow:
+                0 0 10px rgba(0,234,255,.7);
+
+            text-decoration: none;
+
+            transition:
+                color .25s ease,
+                text-shadow .25s ease;
+        }
+
+        .logo::before {
+
+            content: "◈";
+
+            margin-right: 10px;
+
+            animation: pulse 2.5s infinite;
+        }
+
+        .logo:hover {
+
+            color: white;
+
+            text-shadow:
+                0 0 12px rgba(0,234,255,.9);
+        }
+
+        .system-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #69ffbd;
+
+            font-family: monospace;
+
+            font-size: .68rem;
+
+            letter-spacing: 2px;
+        }
+
+        .status-light {
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #69ffbd;
+
+            box-shadow:
+                0 0 8px #69ffbd;
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            50% {
+                opacity: .4;
+            }
+        }
+
+
+        /* =========================================================
+           ARTICLE CONTAINER
+        ========================================================= */
+
+        main {
+
+            width: min(
+                950px,
+                calc(100% - 40px)
+            );
+
+            margin: 0 auto;
+
+            padding:
+                125px
+                0
+                80px;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        header {
+
+            position: relative;
+
+            padding:
+                35px
+                40px
+                30px;
+
+            margin-bottom: 35px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(11,21,39,.82),
+                    rgba(4,8,18,.74)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 14px;
+
+            backdrop-filter:
+                blur(14px);
+
+            overflow: hidden;
+        }
+
+        header::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 160px;
+
+            height: 1px;
+
+            background:
+                var(--cyan);
+
+            box-shadow:
+                0 0 15px
+                var(--cyan);
+        }
+
+        header::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            right: -130px;
+            top: -130px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(0,234,255,.07);
+
+            filter:
+                blur(35px);
+
+            pointer-events: none;
+        }
+
+        .system-label {
+
+            color: var(--cyan);
+
+            font-family: monospace;
+
+            font-size: .7rem;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+        .system-label::before {
+            content: "// ";
+        }
+
+        header h1 {
+
+            margin:
+                0 0
+                8px;
+
+            font-size:
+                clamp(
+                    2.1rem,
+                    5vw,
+                    3.5rem
+                );
+
+            line-height: 1.1;
+
+            letter-spacing: -1.5px;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    white 10%,
+                    var(--cyan) 48%,
+                    #fff 68%,
+                    var(--purple) 95%
+                );
+
+            background-size: 300% auto;
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                neuralGradient 8s linear infinite;
+        }
+
+        @keyframes neuralGradient {
+
+            to {
+                background-position:
+                    300% center;
+            }
+        }
+
+        header p {
+
+            margin:
+                12px 0 0;
+
+            color:
+                #8da1b4;
+
+            font-family:
+                monospace;
+
+            font-size:
+                .9rem;
+        }
+
+        header strong {
+
+            color:
+                var(--cyan);
+
+            font-weight:
+                normal;
+        }
+
+
+        /* =========================================================
+           ARTICLE SECTIONS
+        ========================================================= */
+
+        section {
+
+            position: relative;
+
+            margin-bottom: 25px;
+
+            padding:
+                30px 35px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(7,14,27,.76),
+                    rgba(4,8,18,.68)
+                );
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 12px;
+
+            backdrop-filter:
+                blur(12px);
+
+            overflow: hidden;
+        }
+
+        section::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 70px;
+
+            height: 1px;
+
+            background:
+                var(--cyan);
+
+            box-shadow:
+                0 0 12px
+                var(--cyan);
+
+            transition:
+                width .4s ease;
+        }
+
+        section:hover::before {
+            width: 100%;
+        }
+
+        section h2 {
+
+            margin:
+                0 0
+                20px;
+
+            color:
+                #e8f7ff;
+
+            font-size:
+                1.55rem;
+
+            letter-spacing:
+                -.3px;
+        }
+
+        section h2::before {
+
+            content:
+                "◈";
+
+            color:
+                var(--cyan);
+
+            font-size:
+                .7rem;
+
+            margin-right:
+                10px;
+
+            opacity:
+                .85;
+        }
+
+        section p {
+
+            margin:
+                0 0
+                18px;
+
+            color:
+                #879aac;
+
+            font-size:
+                .95rem;
+        }
+
+        section p:last-child {
+            margin-bottom: 0;
+        }
+
+        section strong {
+
+            color:
+                #d9f5ff;
+        }
+
+
+        /* =========================================================
+           HIGHLIGHT
+        ========================================================= */
+
+        .highlight {
+
+            position: relative;
+
+            margin:
+                25px 0;
+
+            padding:
+                20px 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,234,255,.055),
+                    rgba(168,85,247,.045)
+                );
+
+            border:
+                1px solid
+                rgba(0,234,255,.16);
+
+            border-left:
+                3px solid
+                var(--cyan);
+
+            border-radius:
+                6px;
+
+            box-shadow:
+                inset 0 0 25px
+                rgba(0,234,255,.025);
+        }
+
+        .highlight p {
+            margin: 0;
+        }
+
+        .highlight strong {
+            color: var(--cyan);
+        }
+
+
+        /* =========================================================
+           FEATURE LIST
+        ========================================================= */
+
+        .features {
+
+            margin:
+                25px 0 5px;
+
+            padding:
+                20px 25px;
+
+            background:
+                rgba(3,7,15,.55);
+
+            border:
+                1px solid
+                rgba(0,234,255,.12);
+
+            border-radius:
+                8px;
+        }
+
+        .features ul {
+
+            margin:
+                0;
+
+            padding-left:
+                22px;
+        }
+
+        .features li {
+
+            margin-bottom:
+                12px;
+
+            color:
+                #879aac;
+        }
+
+        .features li:last-child {
+            margin-bottom: 0;
+        }
+
+        .features strong {
+            color:
+                #d9f5ff;
+        }
+
+
+        /* =========================================================
+           IMAGES
+        ========================================================= */
+
+        .screenshots {
+
+            margin:
+                30px 0 5px;
+
+            text-align:
+                center;
+        }
+
+        .screenshot-label {
+
+            display:
+                block;
+
+            margin:
+                22px 0 10px;
+
+            color:
+                var(--cyan);
+
+            font-family:
+                monospace;
+
+            font-size:
+                .68rem;
+
+            letter-spacing:
+                2px;
+
+            text-transform:
+                uppercase;
+        }
+
+        .screenshot-label:first-child {
+            margin-top: 0;
+        }
+
+        .screenshots img {
+
+            width:
+                80%;
+
+            max-width:
+                100%;
+
+            display:
+                block;
+
+            margin:
+                0 auto 25px;
+
+            border:
+                1px solid
+                rgba(0,234,255,.2);
+
+            border-radius:
+                7px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0,0,0,.45),
+
+                0 0 25px
+                rgba(0,234,255,.05);
+        }
+
+
+        /* =========================================================
+           CODE
+        ========================================================= */
+
+        code {
+
+            background:
+                rgba(0,234,255,.07);
+
+            color:
+                var(--cyan);
+
+            padding:
+                2px 6px;
+
+            border:
+                1px solid
+                rgba(0,234,255,.1);
+
+            border-radius:
+                3px;
+
+            font-family:
+                monospace;
+        }
+
+
+        /* =========================================================
+           GITHUB
+        ========================================================= */
+
+        .github-link {
+
+            display:
+                inline-block;
+
+            margin-top:
+                5px;
+
+            padding:
+                9px 14px;
+
+            color:
+                var(--cyan);
+
+            text-decoration:
+                none;
+
+            font-family:
+                monospace;
+
+            font-size:
+                .75rem;
+
+            letter-spacing:
+                1.5px;
+
+            border:
+                1px solid
+                rgba(0,234,255,.22);
+
+            border-radius:
+                4px;
+
+            transition:
+                all .25s ease;
+        }
+
+        .github-link::after {
+            content:
+                "  →";
+        }
+
+        .github-link:hover {
+
+            color:
+                white;
+
+            border-color:
+                var(--cyan);
+
+            background:
+                rgba(0,234,255,.08);
+
+            box-shadow:
+                0 0 15px
+                rgba(0,234,255,.18);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            margin-top:
+                50px;
+
+            padding:
+                30px 20px;
+
+            text-align:
+                center;
+
+            color:
+                #4e6072;
+
+            font-family:
+                monospace;
+
+            font-size:
+                .7rem;
+
+            letter-spacing:
+                1px;
+
+            border-top:
+                1px solid
+                rgba(0,234,255,.1);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media(max-width:700px) {
+
+            nav {
+                height: 56px;
+            }
+
+            .system-status {
+                display: none;
+            }
+
+            main {
+
+                width:
+                    calc(100% - 24px);
+
+                padding-top:
+                    90px;
+            }
+
+            header,
+            section {
+
+                padding:
+                    25px 22px;
+            }
+
+            header h1 {
+
+                font-size:
+                    2rem;
+            }
+
+            .screenshots img {
+
+                width:
+                    100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
+
+
+<header>
+
+    <div class="system-label">
+        VIBE CODING // PROJECT
+    </div>
+
+    <h1>
+        Vibe Coding netscout in Rust
+    </h1>
+
+    <p>
+        <strong>Building a Linux Network Scanner with Claude</strong>
+    </p>
+
+</header>
+
+
+<section>
+
+    <h2>A New Challenge</h2>
+
+    <p>
+        After experimenting with Claude to build several applications, I wanted
+        to try something that presented a different kind of challenge. I had
+        never programmed in <strong>Rust</strong> before, so I decided to see
+        what would happen if I used Claude to build a useful application in a
+        language I didn't know.
+    </p>
+
+    <p>
+        The project became <strong>netscout</strong>, a Linux network scanner
+        designed to discover devices on my local network and display information
+        about them in a live-updating interface.
+    </p>
+
+    <div class="highlight">
+
+        <strong>The interesting part:</strong> I had no previous Rust
+        experience, but that did not prevent me from building a functional
+        application. Claude handled much of the language-specific implementation
+        while I focused on describing what I wanted and evaluating the results.
+
+    </div>
+
+
+    <div class="screenshots">
+
+        <span class="screenshot-label">
+            Terminal UI
+        </span>
+
+        <img
+            src="netscout_cli_ui_screenshot.png"
+            alt="netscout terminal interface screenshot"
+        >
+
+        <span class="screenshot-label">
+            Web Dashboard
+        </span>
+
+        <img
+            src="netscout_web_ui_screenshot.png"
+            alt="netscout web dashboard screenshot"
+        >
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>What netscout Does</h2>
+
+    <p>
+        netscout monitors a local network and identifies devices it discovers.
+        It displays useful information such as hostnames, IP addresses, MAC
+        addresses, and hardware vendors.
+    </p>
+
+    <div class="features">
+
+        <ul>
+
+            <li>
+                <strong>Passive scanning</strong> —
+                listens for ARP traffic without generating network traffic.
+            </li>
+
+            <li>
+                <strong>Active scanning</strong> —
+                can send ARP probes to discover quieter devices.
+            </li>
+
+            <li>
+                <strong>Live terminal interface</strong> —
+                displays discovered devices and updates in real time.
+            </li>
+
+            <li>
+                <strong>MAC vendor identification</strong> —
+                identifies hardware manufacturers using an embedded OUI database.
+            </li>
+
+            <li>
+                <strong>Hostname resolution</strong> —
+                attempts to identify devices by hostname.
+            </li>
+
+            <li>
+                <strong>Optional web dashboard</strong> —
+                provides the same information through a browser interface.
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>Why Rust?</h2>
+
+    <p>
+        Choosing Rust was intentional. I wanted to find out whether unfamiliarity
+        with a programming language would become a significant barrier when
+        working with an AI coding assistant.
+    </p>
+
+    <p>
+        It turned out that it wasn't.
+    </p>
+
+    <p>
+        I could describe the functionality I wanted, have Claude generate the
+        implementation, compile and test it, and then return to Claude with
+        problems or changes. When I encountered Rust-specific concepts, I could
+        ask Claude to explain them or modify the code rather than having to stop
+        the project and first become proficient in Rust.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>From Idea to Application</h2>
+
+    <p>
+        The project was another example of how I have been using AI-assisted
+        development as an iterative process. I didn't start with a complete
+        design or a detailed understanding of how every component would work.
+    </p>
+
+    <p>
+        Instead, I started with a goal and gradually refined the application.
+        Claude helped translate those requirements into Rust, while testing the
+        application revealed new things I wanted to change or improve.
+    </p>
+
+    <p>
+        The finished program runs as a Linux application and can operate from
+        the terminal, including over an SSH connection. It can also optionally
+        provide a web interface for viewing the network remotely.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>What I Learned</h2>
+
+    <p>
+        This project reinforced something I had already begun to discover through
+        my earlier vibe-coding experiments: knowing how to program is still
+        valuable, but AI changes how that knowledge can be applied.
+    </p>
+
+    <p>
+        I didn't need to know Rust syntax before starting the project. What I
+        needed was enough technical understanding to describe the problem,
+        recognize whether the solution made sense, test the application, and
+        identify when something wasn't working correctly.
+    </p>
+
+    <div class="highlight">
+
+        <p>
+            <strong>Vibe coding didn't make Rust disappear.</strong> It gave me
+            a way to work productively with Rust before I knew the language.
+            Instead of learning the language first and then building something,
+            I learned about the language while building something.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>Reflection</h2>
+
+    <p>
+        netscout was a particularly interesting experiment because it moved my
+        AI-assisted programming beyond simple scripts and into a more substantial
+        systems-oriented application.
+    </p>
+
+    <p>
+        More importantly, it challenged one of my assumptions about programming:
+        that not knowing a language necessarily means you can't build something
+        useful with it. With an AI coding assistant acting as a knowledgeable
+        collaborator, the barrier was much lower than I expected.
+    </p>
+
+    <p>
+        I still wouldn't consider myself a Rust programmer. But I now know that
+        lack of experience with a particular language doesn't necessarily have
+        to prevent me from exploring what can be built with it.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>Github</h2>
+
+    <p>
+        netscout is available to download including the source code on my
+        <a
+            class="github-link"
+            href="https://github.com/Amnzul/netscout"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Github
+        </a>
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p>
+        MR_W_LABS //
+        VIBE CODING //
+        NETSCOUT //
+        RUST
+    </p>
+
+</footer>
+
+
+</main>
+
+
+<!-- ======================================================
+     NEURAL NETWORK ENGINE
+====================================================== -->
+
+<script>
+
+const canvas =
+    document.getElementById(
+        "neural-network"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+let width;
+let height;
+
+let nodes = [];
+
+let mouse = {
+    x: null,
+    y: null
+};
+
+
+/* ---------------------------------------------------------
+   RESIZE
+--------------------------------------------------------- */
+
+function resize() {
+
+    width =
+        canvas.width =
+        window.innerWidth;
+
+    height =
+        canvas.height =
+        window.innerHeight;
+
+    createNodes();
+}
+
+
+/* ---------------------------------------------------------
+   CREATE NODES
+--------------------------------------------------------- */
+
+function createNodes() {
+
+    nodes = [];
+
+    const amount =
+        Math.min(
+            100,
+            Math.max(
+                40,
+                Math.floor(
+                    width * height / 16000
+                )
+            )
+        );
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        nodes.push({
+
+            x:
+                Math.random()
+                * width,
+
+            y:
+                Math.random()
+                * height,
+
+            vx:
+                (Math.random() - .5)
+                * .22,
+
+            vy:
+                (Math.random() - .5)
+                * .22,
+
+            r:
+                Math.random()
+                * 1.6
+                + .7
+
+        });
+
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   DRAW
+--------------------------------------------------------- */
+
+function draw() {
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* Move nodes */
+
+    for (const node of nodes) {
+
+        node.x += node.vx;
+        node.y += node.vy;
+
+
+        if (
+            node.x < 0 ||
+            node.x > width
+        ) {
+
+            node.vx *= -1;
+
+        }
+
+
+        if (
+            node.y < 0 ||
+            node.y > height
+        ) {
+
+            node.vy *= -1;
+
+        }
+
+
+        /* Mouse influence */
+
+        if (
+            mouse.x !== null
+        ) {
+
+            const dx =
+                mouse.x -
+                node.x;
+
+            const dy =
+                mouse.y -
+                node.y;
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+            if (
+                distance < 180 &&
+                distance > 1
+            ) {
+
+                const force =
+                    (180 - distance)
+                    / 180;
+
+                node.x -=
+                    dx / distance
+                    * force
+                    * .18;
+
+                node.y -=
+                    dy / distance
+                    * force
+                    * .18;
+
+            }
+
+        }
+
+    }
+
+
+    /* Connections */
+
+    for (
+        let i = 0;
+        i < nodes.length;
+        i++
+    ) {
+
+        for (
+            let j = i + 1;
+            j < nodes.length;
+            j++
+        ) {
+
+            const a =
+                nodes[i];
+
+            const b =
+                nodes[j];
+
+            const dx =
+                a.x - b.x;
+
+            const dy =
+                a.y - b.y;
+
+            const distance =
+                Math.sqrt(
+                    dx * dx +
+                    dy * dy
+                );
+
+            if (
+                distance < 145
+            ) {
+
+                const opacity =
+                    (1 - distance / 145)
+                    * .20;
+
+                ctx.beginPath();
+
+                ctx.strokeStyle =
+                    `rgba(
+                        0,
+                        234,
+                        255,
+                        ${opacity}
+                    )`;
+
+                ctx.lineWidth =
+                    .5;
+
+                ctx.moveTo(
+                    a.x,
+                    a.y
+                );
+
+                ctx.lineTo(
+                    b.x,
+                    b.y
+                );
+
+                ctx.stroke();
+
+            }
+
+        }
+
+    }
+
+
+    /* Nodes */
+
+    for (
+        const node of nodes
+    ) {
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "rgba(0,234,255,.65)";
+
+        ctx.shadowColor =
+            "rgba(0,234,255,.9)";
+
+        ctx.shadowBlur =
+            8;
+
+        ctx.arc(
+            node.x,
+            node.y,
+            node.r,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.shadowBlur =
+            0;
+
+    }
+
+
+    requestAnimationFrame(
+        draw
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   MOUSE
+--------------------------------------------------------- */
+
+window.addEventListener(
+    "mousemove",
+    event => {
+
+        mouse.x =
+            event.clientX;
+
+        mouse.y =
+            event.clientY;
+
+    }
+);
+
+
+window.addEventListener(
+    "mouseleave",
+    () => {
+
+        mouse.x =
+            null;
+
+        mouse.y =
+            null;
+
+    }
+);
+
+
+/* ---------------------------------------------------------
+   START
+--------------------------------------------------------- */
+
+window.addEventListener(
+    "resize",
+    resize
+);
+
+resize();
+
+draw();
+
+</script>
+
+
+</body>
+</html>
+```
