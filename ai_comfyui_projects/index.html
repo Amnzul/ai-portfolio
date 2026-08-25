@@ -1,0 +1,625 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ComfyUI Experiments</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+
+        video {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto;
+        }
+
+       figure {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+
+        figcaption {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ======================================================
+     NEURAL BACKGROUND
+====================================================== -->
+
+<canvas id="neural-network"></canvas>
+
+
+<!-- ======================================================
+     NAVIGATION
+====================================================== -->
+
+<nav>
+
+    <a href="../index.html" class="logo">
+        MR_W_LABS
+    </a>
+
+    <div class="system-status">
+
+        <span class="status-light"></span>
+
+        AI PROJECT
+
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     MAIN ARTICLE
+====================================================== -->
+
+<main>
+
+<header>
+
+    <h1>My ComfyUI Experiments</h1>
+
+    <p>
+        <strong>Exploring Local AI Workflows for Images, Audio, and Video</strong>
+    </p>
+
+</header>
+
+
+<section>
+
+    <p class="intro">
+        ComfyUI has become one of the most useful tools in my local AI
+        experiments. Rather than being a single AI model, ComfyUI is a visual
+        environment for connecting models and processing steps together into
+        custom workflows.
+    </p>
+
+    <p>
+        I've used it to experiment with image generation, audio generation,
+        voice cloning, video generation, and character consistency. I've also
+        downloaded and modified workflows created by other people to accomplish
+        things that would be difficult to build from scratch.
+    </p>
+
+    <div class="capabilities">
+
+        <div class="capability">
+            <strong>Text-to-Audio</strong>
+            Generate speech and other audio from text.
+        </div>
+
+        <div class="capability">
+            <strong>Voice Cloning</strong>
+            Generate speech using a reference voice.
+        </div>
+
+        <div class="capability">
+            <strong>Text-to-Image</strong>
+            Generate images from written prompts.
+        </div>
+
+        <div class="capability">
+            <strong>Reference-to-Video</strong>
+            Use existing images as references for generated video.
+        </div>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>Why I Like ComfyUI</h2>
+
+    <p>
+        ComfyUI is amazing in many ways. One of the biggest advantages of ComfyUI is that I can run the models
+        locally on my own hardware. There are no daily generation limits imposed
+        by a web service, and the content I'm creating doesn't need to leave my
+        computer.
+    </p>
+
+    <p>
+        This comes with a tradeoff: local generation can be considerably slower.
+        A cloud service may generate an image or video much faster because it is
+        running on expensive server hardware. My computer has a capable
+        RTX 4070 Ti with 12GB of VRAM, but generating complex
+        video locally can still take 10 minute for a 10 second clip.
+    </p>
+
+    <div class="highlight">
+
+        <strong>For me, the tradeoff is worth it.</strong>
+
+        <p>
+            I get unlimited experimentation, no watermarks, local processing, and
+            control over the models and workflows I use.
+        </p>
+
+    </div>
+
+    <p>
+        The comparison is particularly interesting when I use commercial
+        services as part of a local workflow. ElevenLabs, for example, produces
+        excellent voices, but there are usage limits. I can use an ElevenLabs
+        result as a reference or starting point for a local ComfyUI workflow.
+    </p>
+
+    <p>
+        This general approach of using a higher-quality model to help produce
+        training or reference material for another model is often described as
+        <strong>distillation</strong>.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>Learning How the Models Work</h2>
+
+    <p>
+        One unexpected benefit of using ComfyUI has been learning the vocabulary
+        behind generative AI. The workflow-based approach forced me to learn what
+        the different model components actually do and how they fit together.
+    </p>
+
+    <div class="terminology">
+
+        <dl>
+
+            <dt>Checkpoint</dt>
+            <dd>
+                The primary model containing the weights needed to generate
+                content. Examples include Stable Diffusion 1.5, SDXL, and FLUX.
+            </dd>
+
+            <dt>VAE — Variational Autoencoder</dt>
+            <dd>
+                Acts as a translator between the model's mathematical
+                representation and an actual image. Some checkpoints include
+                their VAE internally.
+            </dd>
+
+            <dt>CLIP Text Encoder</dt>
+            <dd>
+                Converts written prompts into a representation the image model
+                can understand.
+            </dd>
+
+            <dt>LoRA — Low-Rank Adaptation</dt>
+            <dd>
+                A smaller modifier that can be applied to a base model to
+                influence things such as artistic style, characters, clothing,
+                or poses without replacing the entire model.
+            </dd>
+
+            <dt>ControlNet</dt>
+            <dd>
+                Allows reference information, such as a character pose, to guide
+                the generation process.
+            </dd>
+
+            <dt>FaceID LoRA</dt>
+            <dd>
+                A technique for preserving facial characteristics so that the
+                same character can be generated in different scenes, outfits,
+                and poses.
+            </dd>
+
+            <dt>Upscaler</dt>
+            <dd>
+                Increases image resolution while attempting to recreate details,
+                improve textures, sharpen images, and reduce artifacts.
+            </dd>
+
+        </dl>
+
+    </div>
+
+    <div class="highlight">
+
+        <strong>One important lesson:</strong> models and modifiers are not
+        interchangeable. A LoRA or other component designed for SD 1.5, SDXL,
+        or FLUX generally needs to be used with the appropriate model family.
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>Understanding Model File Formats</h2>
+
+    <p>
+        Working with local models also introduced me to the different file
+        formats used to distribute AI models.
+    </p>
+
+    <h3>.safetensors</h3>
+
+    <p>
+        <code>.safetensors</code> is a format commonly used for storing AI model
+        weights. Unlike formats that can contain executable code, safetensors
+        is designed to contain tensor data rather than arbitrary executable
+        objects, making it a safer way to distribute model files.
+    </p>
+
+    <h3>.gguf</h3>
+
+    <p>
+        <code>.gguf</code> is a model format designed particularly for efficient
+        inference, including quantized models that can run on hardware with
+        limited VRAM. This makes it possible to experiment with models that
+        would otherwise be too large for consumer hardware. Low VRAM in 2026 is         considered 8GB.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>Experiment: Generating Pixel Art</h2>
+
+    <p>
+        I recently needed pixel art for another project. Rather than generating
+        every asset manually, I searched for an SDXL checkpoint specifically
+        designed for pixel art.
+    </p>
+
+    <p>
+        I found the <strong><a href="https://civitai.com/models/277680/pixel-art-diffusion-xl?modelVersionId=364043
+">Pixel Art Diffusion XL</a></strong> model and downloaded
+        the <code>.safetensors</code> checkpoint into the \Comfy-Desktop\ComfyUI-Shared\models\checkpoints directory. I then filtered the ComfyUI
+        templates for workflows using SDXL and started with the simple SDXL
+        workflow.
+    </p>
+
+    <figure>
+
+        <img src="comfyui_templates_sdxl.png"
+             alt="ComfyUI templates filtered for SDXL">
+
+        <figcaption>
+            Finding an existing SDXL workflow in ComfyUI.
+        </figcaption>
+
+    </figure>
+
+    <figure>
+
+        <img src="comfyui_pixel_art_workflow.png"
+             alt="ComfyUI pixel art workflow">
+
+        <figcaption>
+            The workflow configured with the pixel art checkpoint.
+        </figcaption>
+
+    </figure>
+
+    <p>
+        The model recommended beginning the prompt with <strong>"Pixel
+        Art"</strong> and keeping the prompt relatively simple. For example:
+    </p>
+
+    <pre>Pixel Art. 16 bit. Pixel art of [wooden chest]. Game Asset. transparent background.</pre>
+
+    <figure>
+
+        <img src="comfyui_pixel_art_chest.png"
+             alt="Pixel art wooden chest generated with ComfyUI">
+
+        <figcaption>
+            A game asset generated using the pixel art workflow.
+        </figcaption>
+
+    </figure>
+
+</section>
+
+
+<section>
+
+    <h2>Consistent Characters</h2>
+
+    <p>
+        One of the most exciting ComfyUI experiments I've done involves
+        generating consistent characters.
+    </p>
+
+    <p>
+        Several years ago, when I was creating a 2D point-and-click adventure
+        game, one of my biggest frustrations was getting AI image generators to
+        maintain the same character between different poses, outfits, and
+        scenes.
+    </p>
+
+    <p>
+        I recently found <a href="https://mickmumpitz.ai/posts/new-video-free-4-164075060">Consistent Character Creator</a> a ComfyUI workflow specifically designed to solve this
+        problem. The website gives instructions on how to add the workflow and which ai models to download. I was impressed this actually worked because it seems ComfyUI is being updated daily and the updates frequently break custom workflows. 
+
+I used a character image from my old game as the reference
+        image and ran it through the workflow.
+    </p>
+
+    <figure>
+
+        <img src="daisy casual.png"
+             alt="Original character image from my previous game">
+
+        <figcaption>
+            The original character image I used as a reference.
+        </figcaption>
+
+    </figure>
+
+    <figure>
+
+        <img src="comfyui_consistent_character_workflow.png"
+             alt="ComfyUI consistent character workflow">
+
+        <figcaption>
+            The ComfyUI workflow used to maintain character consistency.
+        </figcaption>
+
+    </figure>
+
+    <div class="image-grid">
+
+        <img src="comfyui_consistent_character_1.png" alt="Generated consistent character 1">
+        <img src="comfyui_consistent_character_2.png" alt="Generated consistent character 2">
+        <img src="comfyui_consistent_character_3.png" alt="Generated consistent character 3">
+        <img src="comfyui_consistent_character_4.png" alt="Generated consistent character 4">
+        <img src="comfyui_consistent_character_5.png" alt="Generated consistent character 5">
+
+    </div>
+
+    <p>
+        The results were remarkable. The workflow was able to preserve the
+        identity of the character across different generated images far better
+        than the tools I had available when I originally created the game.
+    </p>
+
+    <div class="highlight">
+
+        <strong>I wish I had this technology years ago.</strong>
+
+        <p>
+            Consistent characters were one of the most time-consuming problems
+            in my original game project. A workflow like this would have saved
+            me countless hours of manual image editing and regeneration.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>From Images to Video</h2>
+
+    <p>
+        Once I discovered how useful reference images could be for maintaining
+        characters, the next obvious step was using those images as references
+        for video generation.
+    </p>
+
+    <p>
+        When Minimax H3 was released, I read about it through my AI newsletter
+        reading and searched for a ComfyUI workflow that supported it. I settled
+        on a <strong>Minimax H3 Reference to Video</strong> workflow.
+    </p>
+
+    <p>
+        I used previously generated images of a red dragon and a goblin as
+        reference images and asked an LLM to help me create a prompt describing
+        goblins fighting a red dragon.
+    </p>
+
+    <p>
+        The results were impressive, but video generation is considerably more
+        computationally demanding than generating a still image or an audio
+        clip. Even with my RTX 4070 Ti, a ten-second clip took approximately
+        ten minutes to generate. I went through a few iterations and prompt modifications before reaching one I liked, so it is time consuming.
+    </p>
+
+    <p>
+        I went through several iterations and modified the prompt before
+        reaching a result I liked.
+    </p>
+
+    <video controls preload="metadata" playsinline>
+        <source src="goblin_horde_vs_dragon_1.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <video controls preload="metadata" playsinline>
+        <source src="fairy_ensnares_ogre.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+</section>
+
+
+<section>
+
+    <h2>Voice Cloning with ComfyUI</h2>
+
+    <p>
+        I have also used ComfyUI for voice cloning. Clean reference audio is
+        surprisingly important. Ideally, the source contains one isolated
+        speaker without background music, sound effects, or other voices.
+    </p>
+
+    <p>
+        For experiments, I searched for short audio samples online and used
+        Audacity to combine several clean clips into a longer reference sample.
+        Another common approach is extracting the audio track from a video.
+    </p>
+
+    <p>
+        I learned quickly that holding a phone up to a television is not a great
+        way to collect source audio. The resulting recording contains room
+        acoustics and other noise that can make voice cloning considerably more
+        difficult.
+    </p>
+
+    <p>
+        I modified an existing ComfyUI Chatterbox TTS workflow to experiment
+        with voice cloning. One of the more entertaining uses was bringing the
+        voices of old Western movie stars back to life for a personal
+        anniversary greeting for my parents.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>What ComfyUI Has Taught Me</h2>
+
+    <p>
+        ComfyUI has become more than just another AI image generator for me.
+        It has given me a much better understanding of how generative AI systems
+        are assembled.
+    </p>
+
+    <p>
+        Instead of simply entering a prompt into a website and receiving a
+        result, I can see the individual stages of a workflow and understand
+        how different models and modifiers interact.
+    </p>
+
+    
+    <div class="highlight">
+
+        <strong>ComfyUI has changed how I think about generative AI.</strong>
+
+        <p>
+            Rather than treating AI as a black box, I can experiment with the
+            individual components and build workflows that combine them in ways
+            that aren't necessarily available through commercial interfaces.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>Local AI vs. Cloud Services</h2>
+
+    <p>
+        I've experimented with several commercial AI services, and they often
+        provide excellent results with very little effort. ChatGPT can produce
+        excellent images. Sora can generate video quickly. ElevenLabs produces
+        remarkably convincing voices.
+    </p>
+
+    <p>
+        But each service comes with its own limitations, whether those are usage
+        limits, content restrictions, watermarks, subscription costs, or the
+        requirement to send my content to someone else's servers.
+    </p>
+
+    <p>
+        ComfyUI takes the opposite approach. I supply the hardware, models, and
+        patience. In return, I have no artificial daily generation limit, no
+        watermarks added by a service, and my creative work stays on my own
+        computer.
+    </p>
+
+    <p>
+        The downside is that local AI requires more technical knowledge. Finding
+        models, installing dependencies, managing VRAM, troubleshooting
+        workflows, and keeping everything compatible can sometimes be a project
+        in itself.
+    </p>
+
+    <p>
+        For me, that is part of the appeal.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>Reflection</h2>
+
+    <p>
+        ComfyUI has probably taught me more about the practical side of
+        generative AI than any single other tool I've used. It has taken me from
+        simply generating images to understanding how models are connected,
+        modified, compressed, and used as components in larger workflows.
+    </p>
+
+    <p>
+        It has also shown me how quickly the open-source AI ecosystem is moving.
+        New models and workflows appear constantly, and techniques that were
+        difficult or unreliable only a short time ago can suddenly become
+        practical on consumer hardware.
+    </p>
+
+    <p>
+        The biggest attraction for me is the freedom to experiment. I can
+        download a model, find a workflow, modify it, combine it with something
+        else, and see what happens. Sometimes it takes considerably longer than
+        using a commercial service, but I have the freedom to keep experimenting
+        without worrying about hitting a daily usage limit.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p>
+        Personal Portfolio &mdash; Local AI &mdash; ComfyUI Experiments
+    </p>
+
+</footer>
+
+
+</main>
+
+
+<script src="../script.js"></script>
+
+</body>
+</html>
